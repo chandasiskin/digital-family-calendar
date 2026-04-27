@@ -8,6 +8,10 @@ on:
     paths:
       - backend/**
 
+defaults:
+  run:
+    working-directory: ./backend
+
 jobs:
   build:
     name: Build
@@ -23,14 +27,11 @@ jobs:
         cache: 'npm'
 
     - name: Clean install
-      working-directory: ./backend
       run: |
         npm ci
 
     - name: Build
-      working-directory: ./backend
-      run: npm start --if-present
+      run: npm start
     
     - name: Tests
-      working-directory: ./backend
       run: npm run test

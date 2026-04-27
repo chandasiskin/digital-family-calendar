@@ -1,0 +1,28 @@
+on:
+  push:
+    paths:
+      - frontend/**
+  pull_request:
+    paths:
+      - frontend/**
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node JS
+      uses: actions/setup-node@v4
+      with:
+        node-version: 26
+
+    - name: Clean install
+      working-directory: ./frontend
+      run: npm ci
+
+    - name: Build
+      working-directory: ./frontend
+      run: ng build
