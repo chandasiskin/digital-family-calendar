@@ -34,7 +34,7 @@ jobs:
 
     - name: Build
       working-directory: ./backend
-      run: npm start
+      run: npm start --if-present
     
     - name: Tests
       working-directory: ./backend
