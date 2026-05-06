@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --bg-main: #FFF2EB;
+    --bg-section: #FFE8CD;
+    --card: #FAFAFA;
+    --button: #FFD6BA;
+    --button-hover: #FFDCDC;
+    --text: #2D2D2D;
+}
+
+
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text);
+    font-family: "Google Sans", "Helvetica Neue", sans-serif;
+}
