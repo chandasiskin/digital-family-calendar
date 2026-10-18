@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { LoginRequestModel } from '../../models/login-request.model';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,11 @@ export class LoginComponent {
   rememberMe: boolean = false;
 
   onSubmit(): void {
-    console.log(this.username, this.password, this.rememberMe);
+    const loginRequest: LoginRequestModel = {
+      username: this.username,
+      password: this.password
+    };
+
+    console.log(loginRequest);
   }
 }
