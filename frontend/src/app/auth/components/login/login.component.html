@@ -4,7 +4,7 @@
             <div class="login-title">Login</div>
             <div class="login-credentials">
                 <div class="login-credentials-input">
-                    <input autofocus name="username" [(ngModel)]="username" placeholder="Username" type="text">
+                    <input autofocus name="username" [(ngModel)]="username" placeholder="Username" required type="text">
                 </div>
                 <div class="login-credentials-icon">
                     <span class="material-symbols-rounded">person</span>
@@ -14,7 +14,7 @@
 
             <div class="login-credentials">
                 <div class="login-credentials-input">
-                    <input name="password" [(ngModel)]="password" placeholder="Password" type="password">
+                    <input name="password" [(ngModel)]="password" placeholder="Password" required type="password">
                 </div>
                 <div class="login-credentials-icon">
                     <span class="material-symbols-rounded">lock</span>
@@ -29,10 +29,10 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-
+            @if (errorMessage) {{{ errorMessage }}}
             <div class="login-credentials">
                 <div class="login-credentials-input full-width">
-                    <button type="submit">Login</button>
+                    <button type="submit" [disabled]="isLoading">{{ isLoading ? 'Logging in...' : 'Login' }}</button>
                 </div>
                 <div class="clearfix"></div>
             </div>
