@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LoginRequestModel } from '../../models/login-request.model';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +14,7 @@ import { AuthService } from '../../services/auth.service';
 
 export class LoginComponent {
   private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   username: string = "";
   password: string = "";
@@ -21,9 +24,10 @@ export class LoginComponent {
   errorMessage: string | null = null;
 
   onSubmit(): void {
-    if (this.isLoading == true) return;
+    if (this.isLoading || !this.username.trim() || !this.password) return;
 
     this.isLoading = true;
+    this.errorMessage = null;
 
     const loginRequest: LoginRequestModel = {
       username: this.username,
@@ -31,18 +35,11 @@ export class LoginComponent {
       rememberMe: this.rememberMe,
     };
 
-    this.authService.login(loginRequest).subscribe({
-      next: () => {
-        this.authService.setAuthenticated(true);
-        this.isLoading = false;
-        this.errorMessage = 'Login success';
-      },
-      error: () => {
-        this.isLoading = false;
-        this.errorMessage = 'Login failed';
-      }
-    })
-
-    console.log(loginRequest);
+    this.authService.login(loginRequest)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe({
+        next: () => this.router.navigate(['/index']),
+        error: () => this.errorMessage = 'Invalid username or password'
+      });
   }
 }
