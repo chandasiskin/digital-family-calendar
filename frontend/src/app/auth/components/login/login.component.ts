@@ -7,6 +7,13 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
 
+export class LoginComponent {
+  username: string = "";
+  password: string = "";
+  rememberMe: boolean = false;
+
+  onSubmit(): void {
+    console.log(this.username, this.password, this.rememberMe);
+  }
 }
